@@ -21,6 +21,22 @@
       	}
 
       	
+
+         if (!empty($theStorePwRecovery)) {
+            
+            $checkStoreEmail = "SELECT store_user_email FROM store_admin WHERE   store_user_email = '$theStorePwRecovery' ";
+
+            $queryCheckStoreEmail = mysqli_query($db_connection, $checkStoreEmail);
+
+            //count the rows
+
+            $numbersOfRows = mysqli_num_rows($queryCheckStoreEmail);
+
+            if ($numbersOfRows == 0) {
+               
+               $pwRecoverError_store[] = "Email not available";
+            }
+         }
     
 
       	//if empty error
@@ -54,12 +70,7 @@
       	//compare if the email entered does not match with any of the email in the database
       	//then shout out an error for the user to see 
 
-      	if ($theStorePwRecovery !== $emailFetched) {
-      		
-      		$pwRecoverError_store[] = "Email not available";
-
-      	}
-
+      	
 
       	if ($theStorePwRecovery === $emailFetched) {
       		//if $theStorePwRecovery is the same as $emailFetched
@@ -99,7 +110,7 @@
              $messageErrFgtPw = "<ul>";
 
    foreach ($pwRecoverError_store as $pwRecoverError_stores){
-   $messageErrFgtPw .=  "<li>pwRecoverError_stores</li>";
+   $messageErrFgtPw .=  "<li>$pwRecoverError_stores</li>";
 
 
    }
