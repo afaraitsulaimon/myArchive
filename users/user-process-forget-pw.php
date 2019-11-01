@@ -20,6 +20,37 @@
    		
    		$errorFromForgtPcode[] = "Enter your email address";
    	}
+
+
+
+   	if (!empty($theInputEmail)) {
+   		
+   		//if the input field is not empty
+   		//select the eamil from users table
+
+   		$checkEmail = "SELECT users_email FROM users WHERE users_email = '$theInputEmail' ";
+
+
+   		$checkEmailQuery = mysqli_query($db_connection,$checkEmail);
+
+
+   		
+
+
+   		//count the rows
+
+   		$theRows = mysqli_num_rows($checkEmailQuery);
+
+
+
+   		if ($theRows == 0) {
+   			$errorFromForgtPcode[] = "Email Not Available";
+
+
+   		}
+   	}
+
+
     
     //if there is no error of empty field
     //select all from the database 
@@ -36,13 +67,7 @@
      }
     	
  
-$row = mysqli_num_rows($queryUsers);
 
-
-if ($row == 0) {
-
-	$errorFromForgtPcode[] = "Email isnot existing";
-}
  //fetch the user email address and also the user full name
 
      $fetchUsersDetails = mysqli_fetch_assoc($queryUsers);
@@ -81,12 +106,7 @@ if ($row == 0) {
 
      	     $queryUpdateUserPw = mysqli_query($db_connection,$updateUserTable);
 
-     	     if (!$queryUpdateUserPw) {
-     	     	
-     	     	die("could not query QUERYUPDATEUSERPW" .mysqli_error($db_connection));
-
-
-     	     }
+     	    
           
           header("location:user-forgetpw.php?pwStatus=theSuccess");
           exit();
