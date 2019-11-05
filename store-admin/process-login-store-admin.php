@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
    require_once('../database/db_connect.php');
     require_once('../handler/handler.php');
     
@@ -67,12 +69,14 @@
 
 if (empty($storeLoginError)) {
 	
-	$storeLoginSql = "SELECT store_username, store_user_password FROM store_admin WHERE store_username = '$theStoreUserLogin' AND store_user_password ='$theStoreUserLoginPass' ";
+	$storeLoginSql = "SELECT * FROM store_admin WHERE store_username = '$theStoreUserLogin' AND store_user_password ='$theStoreUserLoginPass' ";
 
 
   // if the details supplied does not exist in our database, throw out error
 
 	$query_StoreLogin = mysqli_query($db_connection,$storeLoginSql);
+
+
 
 
 	if (!$query_StoreLogin) {
@@ -86,7 +90,8 @@ if (empty($storeLoginError)) {
 	$countRows = mysqli_num_rows($query_StoreLogin);
 
 
-	if ($countRows=1) {
+
+	if ($countRows = 1) {
 		
 		// fetch the details
 		$fetchStoreUserDet = mysqli_fetch_assoc($query_StoreLogin);
@@ -97,8 +102,6 @@ if (empty($storeLoginError)) {
 		// THEN STORE THE ID FROM THE STORE_ADMIN TABLE WHICH IS id IN A SESSION['storeAdmin_id']
 
              	$_SESSION['storeAdmin_id'] = $fetchStoreUserDet['id'];
-
-
 
 
              	//THEN IF THE ABOVE IS SUCCESSFUL
