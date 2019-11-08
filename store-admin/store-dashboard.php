@@ -70,7 +70,7 @@
 
                 
 
-                 echo "$storeAdminFullName";
+                 echo "<a href='store-dashboard.php'>$storeAdminFullName</a>";
 
                 
                  
@@ -82,9 +82,9 @@
                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bg-primary">
                   <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle = "dropdown" style="float: right;"><?php echo "$storeAdminUserName"; ?></a>
                  <ul class="dropdown-menu">
-                   <li><a href="#">Change Password</a></li>
+                   <li><a href="store-change-pw.php">Change Password</a></li>
                    <li><a href="#">Edit Profile</a></li>
-                   <li><a href="#">Log Out</a></li>
+                   <li><a href="store-logout.php">Log Out</a></li>
 
                  </ul>
                </div>
@@ -128,17 +128,62 @@
 
               <h2 class="text-center" style="font-weight: bolder; font-size: 3em;">ADD FILE</h2>
                <form>
-                 <div class="form-group">
+                 <div class="form-group" align="center" style="font-size: 1.5em;">
                   <!--THE LIST OF USERS WILL BE PULLED OUT FROM THE DATABASE -->
                   <!-- SO THAT THE STORE ADMIN CAN ASSIGN THE FILE TO THE PERSON HE IS GIVE IT TO -->
-                  <label>Select User</label>
-                   <select>
-                     <option><?php ?></option>
+                  <label>Select Department</label><br>
+                   <select style="text-align-last:center; width: 30%; height: 40px; border-radius: 5px;">
+                    
+                     <option>
+                      <?php
+                       $sqlDept = "SELECT store_user_dept FROM store_admin WHERE id = $logOnUserId";
+
+                       $queryDept = mysqli_query($db_connection, $sqlDept);
+
+                       if (!$queryDept) {
+                         die("could not query QUERY DEPT" .mysqli_error($db_connection));
+                       }
+
+                       $fetchDept = mysqli_fetch_assoc($queryDept);
+
+                       $theDepartment = $fetchDept['store_user_dept'];
+
+                       echo "$theDepartment";
+                       ?>
+                     </option>
+                    
                    </select>
                  </div>
 
+                 
+                 <div class="form-group" align="center" style="font-size: 1.5em;">
+                   <label>Assign User</label><br>
+        <select style="text-align-last:center; width: 30%; height: 40px; border-radius: 5px;">
 
-                 <div class="form-group">
+               <option>SELECT DEPARTMENT</option>
+                 
+                        <?php
+                 $usersNameSql = "SELECT * FROM users WHERE users_department = '$theDepartment' ";
+                 
+                 
+
+                   $queryUsersName = mysqli_query($db_connection,$usersNameSql);
+
+               $row = mysqli_num_rows($queryUsersName);
+              while ($row = mysqli_fetch_assoc($queryUsersName)) {
+                  echo "<option value ='".$row['users_FullName'] ."'>" . $row['users_FullName'] . "</option>";
+               }
+                  
+  
+                  
+                   
+                        ?> 
+                
+    
+          </select>
+                 </div>
+
+                 <div class="form-group" style="text-align: center; font-size: 1.5em;">
                    <label>File No</label>
                    <input type="text" name="" class="form-control" placeholder="Enter File No">
                  </div>
