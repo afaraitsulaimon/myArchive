@@ -4,7 +4,14 @@
   require_once("../database/db_connect.php");
  require_once("../handler/handler.php");
  require_once("process-login-store-admin.php");
+ require_once('process-store-add-file.php');
+
 ?>
+
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -25,6 +32,11 @@
   </style>
 </head>
 <body>
+
+  
+  
+
+
 
 
 	<section class="newGround">
@@ -125,16 +137,25 @@
        <div class="row d-flex justify-content-around">
          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 bg-secondary mt-5">
             <div>
+        <?php
 
+          if (isset($_GET['retrieveStatus']) && $_GET['retrieveStatus'] == 'successful') {
+            
+            echo "<div class='alert alert-success'>Document Successfully Retrieved</div>";
+          } elseif(isset($errorMessageFromAdd)) {
+              
+              echo "<div class='alert alert-danger'>$errorMessageFromAdd</div>";
+          }
+        ?>
               <h2 class="text-center" style="font-weight: bolder; font-size: 3em;">ADD FILE</h2>
-               <form>
+               <form method="POST" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
                  <div class="form-group" align="center" style="font-size: 1.5em;">
                   <!--THE LIST OF USERS WILL BE PULLED OUT FROM THE DATABASE -->
                   <!-- SO THAT THE STORE ADMIN CAN ASSIGN THE FILE TO THE PERSON HE IS GIVE IT TO -->
                   <label>Select Department</label><br>
-                   <select style="text-align-last:center; width: 30%; height: 40px; border-radius: 5px;">
+                   <select style="text-align-last:center; width: 30%; height: 40px; border-radius: 5px;" name="storeFileDept">
                     
-                     <option>
+                     <option value="noDept">Select Department</option>
                       <?php
                        $sqlDept = "SELECT store_user_dept FROM store_admin WHERE id = $logOnUserId";
 
@@ -144,13 +165,20 @@
                          die("could not query QUERY DEPT" .mysqli_error($db_connection));
                        }
 
-                       $fetchDept = mysqli_fetch_assoc($queryDept);
+                   
+                    $rowsDept = mysqli_num_rows($queryDept);
 
-                       $theDepartment = $fetchDept['store_user_dept'];
+                    while ($rowsDept = mysqli_fetch_assoc($queryDept)) {
+                          echo "<option value ='".$rowsDept['store_user_dept'] ."'>" . $rowsDept['store_user_dept'] . "</option>";
+ 
 
-                       echo "$theDepartment";
+                          $theDepartment = $rowsDept['store_user_dept'];
+                    }
+                       
+
+                       
                        ?>
-                     </option>
+                     
                     
                    </select>
                  </div>
@@ -158,9 +186,9 @@
                  
                  <div class="form-group" align="center" style="font-size: 1.5em;">
                    <label>Assign User</label><br>
-        <select style="text-align-last:center; width: 30%; height: 40px; border-radius: 5px;">
+        <select style="text-align-last:center; width: 30%; height: 40px; border-radius: 5px;" name="userOfFile">
 
-               <option>SELECT DEPARTMENT</option>
+               <option value="noUser">SELECT USER</option>
                  
                         <?php
                  $usersNameSql = "SELECT * FROM users WHERE users_department = '$theDepartment' ";
@@ -169,13 +197,12 @@
 
                    $queryUsersName = mysqli_query($db_connection,$usersNameSql);
 
+
                $row = mysqli_num_rows($queryUsersName);
               while ($row = mysqli_fetch_assoc($queryUsersName)) {
                   echo "<option value ='".$row['users_FullName'] ."'>" . $row['users_FullName'] . "</option>";
-               }
-                  
-  
-                  
+            
+               }             
                    
                         ?> 
                 
@@ -185,11 +212,13 @@
 
                  <div class="form-group" style="text-align: center; font-size: 1.5em;">
                    <label>File No</label>
-                   <input type="text" name="" class="form-control" placeholder="Enter File No">
+                <input type="text" name="fileToRetrive" class="form-control" placeholder="Enter File No">
+
+
                  </div>
 
                  <div class="form-group">
-                   <button type="submit" class="form-control theSubmit">Save</button>
+                   <button type="submit" class="form-control theSubmit" name="storeTheFile">Save</button>
                  </div>
 
                </form>
@@ -206,9 +235,65 @@
       <div class=" row d-flex justify-content-around">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 bg-danger mt-5">
           
+          <?php
+    if (isset($_GET['theAddStatus']) && $_GET['theAddStatus'] === 'succcessfully') {
+    
+    echo "<div class='alert alert-success'>Succefull</div>";
+
+    }elseif (isset($errorFileMessage)) {
+
+
+      echo "<div class='alert alert-danger'>$errorFileMessage</div>";
+    }
+          ?>
           <h2 class="text-center" style="font-weight: bolder; font-size: 3em;">FILES</h2>
 
+<?php
 
+                
+                $logOnUsertheid = loggedInStore();
+
+
+
+
+             //select all from the store_admin table
+
+             $loggedUsertheDet = "SELECT * FROM store_admin WHERE id = $logOnUsertheid ";
+
+
+             $querytheLoggedUser = mysqli_query($db_connection,$loggedUsertheDet);
+
+if (!$querytheLoggedUser) {
+  
+  die("could not queru QUERYLOGGEDUSER" .mysqli_error($db_connection));
+}
+
+     $table = "<table class='table table-striped'>";
+     $table .= "<tr>";
+     $table .= "<th>User Name</th>";
+     $table .="<th>File No</th>";
+     $table .="<th>Delete</th>";
+     $table .="<th>Edit</th>";
+
+     while ($fetchLogtheUserDet = mysqli_fetch_assoc($querytheLoggedUser)) {
+          $table .= "<tr>";
+          $table .= "<td>{$fetchLogtheUserDet['store_username']}</td>";
+          $table .= "<td>{$fetchLogtheUserDet['store_userFullName']}</td>";
+          
+          $table .= "<form method='POST'>";
+          $table .= "<td><button type='submit' name='delete-inventory' class='' onclick = 'return deleteconfig()'>Delete</button></td>";
+          $table .= "<td><button name='edit-inventory'><a href='edit-inventory.php?state= {$fetchLogtheUserDet['id']} '>EDIT</a></button></td>";
+          $table .= "<input type='hidden' name='theInventoryId' value='$fetchLogtheUserDet[id]'>";
+          $table .= "</form>";
+          $table .= "</tr>";
+     }
+
+     $table .= "</table>";
+
+     echo $table;
+
+     
+?>
           <table class="table table-striped table-bordered">
             <tr>
               <th>User Name</th>
