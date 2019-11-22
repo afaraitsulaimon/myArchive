@@ -258,8 +258,8 @@
 
              //select all from the store_admin table
 
-             $loggedUsertheDet = "SELECT * FROM store_admin WHERE id = $logOnUsertheid ";
-
+             $loggedUsertheDet = "SELECT * FROM storefile WHERE storePickerId = $logOnUsertheid ";
+  
 
              $querytheLoggedUser = mysqli_query($db_connection,$loggedUsertheDet);
 
@@ -270,20 +270,20 @@ if (!$querytheLoggedUser) {
 
      $table = "<table class='table table-striped'>";
      $table .= "<tr>";
-     $table .= "<th>User Name</th>";
      $table .="<th>File No</th>";
+     $table .= "<th>File User</th>";
      $table .="<th>Delete</th>";
      $table .="<th>Edit</th>";
 
      while ($fetchLogtheUserDet = mysqli_fetch_assoc($querytheLoggedUser)) {
           $table .= "<tr>";
-          $table .= "<td>{$fetchLogtheUserDet['store_username']}</td>";
-          $table .= "<td>{$fetchLogtheUserDet['store_userFullName']}</td>";
+          $table .= "<td>{$fetchLogtheUserDet['storeFileNo']}</td>";
+          $table .= "<td>{$fetchLogtheUserDet['assignedUsers']}</td>";
           
           $table .= "<form method='POST'>";
           $table .= "<td><button type='submit' name='delete-inventory' class='' onclick = 'return deleteconfig()'>Delete</button></td>";
-          $table .= "<td><button name='edit-inventory'><a href='edit-inventory.php?state= {$fetchLogtheUserDet['id']} '>EDIT</a></button></td>";
-          $table .= "<input type='hidden' name='theInventoryId' value='$fetchLogtheUserDet[id]'>";
+          $table .= "<td><button name='edit-inventory'><a href='edit-inventory.php?state= {$fetchLogtheUserDet['storeFile_id']} '>EDIT</a></button></td>";
+          $table .= "<input type='hidden' name='theInventoryId' value='$fetchLogtheUserDet[storeFile_id]'>";
           $table .= "</form>";
           $table .= "</tr>";
      }
@@ -294,21 +294,6 @@ if (!$querytheLoggedUser) {
 
      
 ?>
-          <table class="table table-striped table-bordered">
-            <tr>
-              <th>User Name</th>
-              <th>File No</th>
-              <th>Delete</th>
-              <th>Edit</th>
-            </tr>
-
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </table>
         </div>
       </div>
     </div>
