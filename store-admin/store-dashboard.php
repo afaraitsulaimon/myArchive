@@ -272,6 +272,7 @@ if (!$querytheLoggedUser) {
      $table .= "<tr>";
      $table .="<th>File No</th>";
      $table .= "<th>File User</th>";
+     $table .= "<th>Picked Date</th>";
      $table .="<th>Delete</th>";
      $table .="<th>Edit</th>";
 
@@ -279,6 +280,8 @@ if (!$querytheLoggedUser) {
           $table .= "<tr>";
           $table .= "<td>{$fetchLogtheUserDet['storeFileNo']}</td>";
           $table .= "<td>{$fetchLogtheUserDet['assignedUsers']}</td>";
+
+          $table .= "<td>{$fetchLogtheUserDet['pickUpDate']}</td>";
           
           $table .= "<form method='POST'>";
           $table .= "<td><button type='submit' name='delete-inventory' class='' onclick = 'return deleteconfig()'>Delete</button></td>";
