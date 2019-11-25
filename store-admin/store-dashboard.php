@@ -265,19 +265,21 @@
 
 if (!$querytheLoggedUser) {
   
-  die("could not queru QUERYLOGGEDUSER" .mysqli_error($db_connection));
+  die("could not query QUERYLOGGEDUSER" .mysqli_error($db_connection));
 }
 
-     $table = "<table class='table table-striped'>";
+     $table = "<table class='table table-striped table-bordered'>";
      $table .= "<tr>";
+     $table .= "<th>#</th>";
      $table .="<th>File No</th>";
      $table .= "<th>File User</th>";
      $table .= "<th>Picked Date</th>";
      $table .="<th>Delete</th>";
      $table .="<th>Edit</th>";
-
+      
      while ($fetchLogtheUserDet = mysqli_fetch_assoc($querytheLoggedUser)) {
           $table .= "<tr>";
+          $table .= "<td></td>";
           $table .= "<td>{$fetchLogtheUserDet['storeFileNo']}</td>";
           $table .= "<td>{$fetchLogtheUserDet['assignedUsers']}</td>";
 
@@ -285,7 +287,7 @@ if (!$querytheLoggedUser) {
           
           $table .= "<form method='POST'>";
           $table .= "<td><button type='submit' name='delete-inventory' class='' onclick = 'return deleteconfig()'>Delete</button></td>";
-          $table .= "<td><button name='edit-inventory'><a href='edit-inventory.php?state= {$fetchLogtheUserDet['storeFile_id']} '>EDIT</a></button></td>";
+          $table .= "<td><button name='edit-inventory'><a href='store-edit-file.php?theEditId={$fetchLogtheUserDet['storeFile_id']} '>EDIT</a></button></td>";
           $table .= "<input type='hidden' name='theInventoryId' value='$fetchLogtheUserDet[storeFile_id]'>";
           $table .= "</form>";
           $table .= "</tr>";
@@ -294,6 +296,8 @@ if (!$querytheLoggedUser) {
      $table .= "</table>";
 
      echo $table;
+
+
 
      
 ?>
