@@ -5,6 +5,7 @@
  require_once("../handler/handler.php");
  require_once("process-login-store-admin.php");
  require_once('process-store-add-file.php');
+ require_once('process-delete-store-file.php');
 
 ?>
 
@@ -137,6 +138,10 @@
        <div class="row d-flex justify-content-around">
          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 bg-secondary mt-5">
             <div>
+
+              
+
+
         <?php
 
           if (isset($_GET['retrieveStatus']) && $_GET['retrieveStatus'] == 'successful') {
@@ -234,6 +239,14 @@
     <div class="container" id="tableToDisplayFiles" style="display:none">
       <div class=" row d-flex justify-content-around">
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 bg-danger mt-5">
+
+          <?php
+          if (isset($_GET['deleteStatus']) && $_GET['deleteStatus'] == 'deleted') {
+            
+            echo "<div class='alert alert-success'>File Succesfuly Deleted</div>";
+          }
+          ?>
+
           
           <?php
     if (isset($_GET['theAddStatus']) && $_GET['theAddStatus'] === 'succcessfully') {
@@ -286,9 +299,9 @@ if (!$querytheLoggedUser) {
           $table .= "<td>{$fetchLogtheUserDet['pickUpDate']}</td>";
           
           $table .= "<form method='POST'>";
-          $table .= "<td><button type='submit' name='delete-inventory' class='' onclick = 'return deleteconfig()'>Delete</button></td>";
+          $table .= "<td><button type='submit' name='delete-storeFile' class='' onclick = 'return deleteconfig()'>Delete</button></td>";
           $table .= "<td><button name='edit-inventory'><a href='store-edit-file.php?theEditId={$fetchLogtheUserDet['storeFile_id']} '>EDIT</a></button></td>";
-          $table .= "<input type='hidden' name='theInventoryId' value='$fetchLogtheUserDet[storeFile_id]'>";
+          $table .= "<input type='hidden' name='theStoreFileId' value='$fetchLogtheUserDet[storeFile_id]'>";
           $table .= "</form>";
           $table .= "</tr>";
      }
@@ -346,4 +359,20 @@ if (!$querytheLoggedUser) {
     $("#theFormForInputFile").hide();
 
   });
+
+ function deleteconfig() {
+    var del = confirm("Are you sure you want to delete");
+
+    if (del == true) {
+
+        alert('Record Delete');
+    } else {
+
+        alert('Record Not deleted');
+    }
+
+    return del;
+}
+
+
 </script>
