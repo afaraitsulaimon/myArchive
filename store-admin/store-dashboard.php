@@ -113,19 +113,26 @@
        <div class="container-fluid">
          <div class="row d-flex justify-content-around" >
          
-           <a href="#" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 bg-info text-center pt-4 mt-4" style="height: 100px; text-decoration: none; font-size: 2em; font-weight: bolder; color: white;" id="addFile">
+           <a href="#" class="col-lg-2 col-md-2 col-sm-12 col-xs-12 bg-info text-center pt-4 mt-4" style="height: 100px; text-decoration: none; font-size: 2em; font-weight: bolder; color: white;" id="addFile">
             
                  ADD FILE
            
            </a>
 
 
-           <a href="#" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 bg-danger pt-4 mt-4" style="height: 100px; text-align: center; text-decoration: none; font-size: 2em; font-weight: bolder; color: white; " id="viewFile">
+           <a href="view-all-file.php" class="col-lg-2 col-md-2 col-sm-12 col-xs-12 bg-danger pt-4 mt-4" style="height: 100px; text-align: center; text-decoration: none; font-size: 2em; font-weight: bolder; color: white; " id="viewAllFile">
+            
+                 VIEW ALL FILE
+           
+           </a>
+
+           <a href="#" class="col-lg-2 col-md-2 col-sm-12 col-xs-12 bg-danger pt-4 mt-4" style="height: 100px; text-align: center; text-decoration: none; font-size: 2em; font-weight: bolder; color: white; " id="viewFile">
             
                  VIEW FILE
            
            </a>
 
+           
 
          </div>
 
