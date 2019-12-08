@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
    require_once('../database/db_connect.php');
    require_once('../handler/handler.php');
     // check if the login button is clicked
@@ -9,9 +12,9 @@
     //create a variable that stores the input details by users
  	$userLoginError = array();
 
- 	$theUserNameDet = sanitize($_POST['userName']);
+ 	$theUserNameDet = sanitize($_POST['inputuserName']);
 
- 	$thePassCodeDet = sanitize($_POST['userPassword']);
+ 	$thePassCodeDet = sanitize($_POST['users_Password']);
 
    //select all username and password from users table
  	//so that we can compare inputted one and the one in database

@@ -96,7 +96,7 @@
                   <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle = "dropdown" style="float: right;"><?php echo "$storeAdminUserName"; ?></a>
                  <ul class="dropdown-menu">
                    <li><a href="store-change-pw.php">Change Password</a></li>
-                   <li><a href="#">Edit Profile</a></li>
+                   <li><a href="store-edit-profile.php?storeprofileId=$fetchLogUserDet['id']">Edit Profile</a></li>
                    <li><a href="store-logout.php">Log Out</a></li>
 
                  </ul>

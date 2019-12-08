@@ -22,7 +22,7 @@ function sanitize($data){
     //SO AS NOT TO BE ABLE TO OPEN A PAGE THAT NEEDS LOGGEDIN BEFORE
     //ACCESSING
 	function notLoggedInStore(){
-		if(loggedIn() == false){
+		if(loggedInStore() == false){
 
        header("location:store-login-reg.php");
 		}
@@ -31,5 +31,25 @@ function sanitize($data){
 
 
 
+
+	// TO CHECK THE USER THAT IS LOGGED IN
+		function loggedInUser(){
+			if(isset($_SESSION['userLoggedInId'])){
+			  return $_SESSION['userLoggedInId']; 
+			}else{
+				return false;
+			}
+		}
+
+	    // TO CHECK IF THE USER IS NOT LOGGED IN
+	    //SO AS NOT TO BE ABLE TO OPEN A PAGE THAT NEEDS LOGGEDIN BEFORE
+	    //ACCESSING
+		function notLoggedInUser(){
+			if(loggedInUser() == false){
+
+	       header("location:user-login-reg.php");
+			}
+		}
+		
 
 ?>

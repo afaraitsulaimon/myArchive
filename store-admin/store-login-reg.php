@@ -98,6 +98,15 @@
                         <div class="col-lg-12">
     <!-- BEGINNING OF LOGIN FORM -->
 
+    <?php
+
+     if (isset($_GET['storeChangePassCode']) && $_GET['storeChangePassCode'] == 'success') {
+       
+       echo "<div class='alert alert-success'>Password Change SuccessFully</div>";
+     }
+
+    ?>
+
      <?php
      if (isset($storeLoginErrMessage)) {
     

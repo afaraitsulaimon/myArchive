@@ -3,6 +3,8 @@
   require_once("../database/db_connect.php");
  require_once("../handler/handler.php");
  require_once("process-login-store-admin.php");
+ require_once("process-store-change-pw.php");
+
 ?>
 
 
@@ -98,32 +100,49 @@
 
 <!--  the form to change password start from here -->
 
+
 <div class="container-fluid">
   <div class="row d-flex justify-content-around">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mt-5">
       
+      <?php
+        
+            if (isset($_GET['storehangePassCode']) && $_GET['storehangePassCode'] == 'success') {
+                   
+                   echo "<div class='alert alert-success'>Password Successfully Change</div>";
+
+            }elseif (isset($storePwChangeErrMessage)) {
+                
+                echo "<div class='alert alert-danger'>{$storePwChangeErrMessage}</div>";
+
+            }
+      ?>
+
+
+
            <h1 class="text-center pt-5">Change Password</h1>
 
-           <form>
+           
+           <form method="POST" action="<?php echo htmlentities($_SERVER['PHP_SELF']) ?>">
              <div class="form-group">
                <label>Current Password:</label>
-               <input type="password" name="" placeholder="Current Password" class="form-control">
+               <input type="password" name="storeCurrentPw" placeholder="Current Password" class="form-control">
 
              </div>
 
 
              <div class="form-group">
                <label>New Password</label>
-               <input type="password" name="" placeholder="New Password" class="form-control">
+               <input type="password" name="storeNewPw" placeholder="New Password" class="form-control">
              </div>
 
              <div class="form-group">
                <label>Confirm New Password</label>
-               <input type="password" name="" placeholder="New Password" class="form-control">
+               <input type="password" name="storeConfirmNewPw" placeholder="New Password" class="form-control">
              </div>
 
              <div class="form-group" align="center">
-               <input type="submit" name="" class="btn btn-primary btn-lg mt-3" value="Change Password">
+               <input type="submit" name="storeChangepwBut" class="btn btn-primary btn-lg mt-3" value="Change Password">
              </div>
            </form>
     </div>
