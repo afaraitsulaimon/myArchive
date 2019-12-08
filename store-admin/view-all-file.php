@@ -103,6 +103,105 @@
          
     <!--HEADER DASHBOARD FOR STORE ENDS HERE -->
 
+<!-- SEARCH FILE START FROM HERE -->
+   <div class="container-fluid">
+     <div class="row d-flex justify-content-around">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bg-info mt-4">
+          <div class="form-group" align="center">
+            <form method="POST" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
+              <input type="text" name="searchFile" >
+              <input type="submit" id="findFiles" name="searchButton">
+            </form>
+            
+          </div>
+        </div>
+       
+     </div>
+   </div>
+<!-- SEARCH FILE ENDS HERE -->
+
+
+
+
+
+
+
+<!-- SHOW SEARCH RESULT START FROM HERE -->
+   <div class="container-fluid" id="showSearchFile" style="display: none">
+     <div class="row d-flex justify-content-around">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bg-danger mt-4">
+
+          
+
+<?php
+
+    if (isset($_POST['searchButton'])) {
+
+ 
+
+
+         $errSearch = array();
+
+         $theSearchNum = sanitize($_POST['searchFile']);
+
+
+         if (empty($theSearchNum)) {
+          
+             $errSearch[] = "Enter File Number";
+         }
+
+
+            if (empty($errSearch)) {
+              
+              $searchForFile = "SELECT * FROM storefile WHERE dept_StoreFile LIKE '%$theSearchNo%' OR assignedUsers LIKE '%$theSearchNo%' OR pickUpDate LIKE '%$theSearchNo%' ";
+
+
+              $query_searchForFile = mysqli_query($db_connection, $searchForFile);
+
+              if (!$query_searchForFile) {
+                
+                die("could not query QUERY_SEARCHFORFILE" .mysqli_error($db_connection));
+              }
+
+              //check the numbers of rows the result display
+
+              $rowsSearchForFile = mysqli_num_rows($query_searchForFile);
+
+              $table = "<table class='table table-striped table-bordered'>";
+              $table .= "<tr>";
+              $table .= "<th>#</th>";
+              $table .= "<th>File No</th>";
+              $table .= "<th>File User</th>";
+              $table .= "<th>Picked Date</th>";
+              $table .= "</tr>";
+
+
+         while ($fetchSearchForFile = mysqli_fetch_assoc($query_searchForFile)) {
+          
+              $table .= "<tr>";
+              $table .= "<td></td>";
+              $table .= "<td>{$fetchSearchForFile['storeFileNo']}</td>";
+              $table .= "<td>{$fetchSearchForFile['assignedUsers']}</td>";
+              $table .= "<td>{$fetchSearchForFile['pickUpDate']}</td>";
+              $table .= "</tr>";
+         }
+
+         $table .= "</table>";
+         echo $table;
+            }
+
+
+    }
+          
+              ?>
+
+          </div>
+        </div>
+       
+     </div>
+   </div>
+<!-- SHOW SEARCH RESULT ENDS HERE -->
+
 
     
 <!-- BODY TO DISPAY THE WHOLE FILE STARTS FROM HERE-->
@@ -202,6 +301,50 @@
 
 
        </div>
+
+       <!--PAGINATION STARTS HERE -->
+
+       <?php
+
+        if (isset($_GET['pageno'])) {
+            $pageno = $_GET['pageno'];
+        } else {
+            $pageno = 1;
+        }
+        $no_of_records_per_page = 10;
+        $offset = ($pageno-1) * $no_of_records_per_page;
+
+        
+        // Check connection
+        if (mysqli_connect_errno()){
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            die();
+        }
+
+        $total_pages_sql = "SELECT COUNT(*) FROM storefile";
+        $result = mysqli_query($db_connection,$total_pages_sql);
+        $total_rows = mysqli_fetch_array($result)[0];
+        $total_pages = ceil($total_rows / $no_of_records_per_page);
+
+        $sql = "SELECT * FROM storefile LIMIT $offset, $no_of_records_per_page";
+        $res_data = mysqli_query($db_connection,$sql);
+        while($row = mysqli_fetch_array($res_data)){
+            //here goes the data
+        }
+    ?>
+    <ul class="pagination">
+        <li><a href="?pageno=1">First</a></li>
+        <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+            <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
+        </li>
+        <li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+            <a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
+        </li>
+        <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+    </ul>
+
+    <!--PAGINATION ENDS HERE -->
+
     </section>
 
 <!-- BODY TO DISPAY THE WHOLE FILE ENDS HERE-->
@@ -221,3 +364,12 @@
 </body>
 </html>
 
+<script type="text/javascript">
+
+  $("#findFiles") .click(function(){
+
+    $("#showSearchFile") .show();
+  });
+
+
+</script>
