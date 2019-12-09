@@ -98,8 +98,8 @@
        	    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bg-primary">
                     <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle = "dropdown" style="float: right;"><?php echo "$fetchUsers_UserName"; ?></a>
                    <ul class="dropdown-menu">
-                     <li><a href="store-change-pw.php">Change Password</a></li>
-                     <li><a href="#">Edit Profile</a></li>
+                     <li><a href="users-change-pw.php">Change Password</a></li>
+                     <li><a href="user-edit-profile.php?profileEditId=$fetchUsersDetails['user_id']">Edit Profile</a></li>
                      <li><a href="users-logout.php">Log Out</a></li>
 
                    </ul>
