@@ -1,6 +1,7 @@
 <?php
    require_once('process-users-reg.php');
    require_once('process-users-login.php');
+   require_once('process-users-change-pw.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,6 +95,19 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
+
+                <!-- successful message display for paassword change start here-->
+                <?php
+                    if (isset($_GET['userChangePassStatus']) && $_GET['userChangePassStatus'] == 'good') {
+
+
+                      echo "<div class='alert alert-success'>Password Changed successfully</div>";
+                    }
+                ?>
+                <!-- successful message display for paassword change ends here-->
+
+
+
     <!-- BEGINNING OF USER LOGIN FORM -->
 
     <?php
