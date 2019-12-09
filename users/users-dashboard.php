@@ -6,6 +6,7 @@
 
 ?>
 
+<?php notLoggedInUser() ?>
 
 <!DOCTYPE html>
 <html>
