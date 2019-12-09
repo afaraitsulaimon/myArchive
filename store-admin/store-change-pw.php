@@ -1,12 +1,12 @@
 <?php
-
+     
   require_once("../database/db_connect.php");
  require_once("../handler/handler.php");
  require_once("process-login-store-admin.php");
  require_once("process-store-change-pw.php");
-
 ?>
 
+<?php notLoggedInStore() ?>
 
 <!DOCTYPE html>
 <html>

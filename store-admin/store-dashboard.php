@@ -1,6 +1,5 @@
 
 <?php
-
   require_once("../database/db_connect.php");
  require_once("../handler/handler.php");
  require_once("process-login-store-admin.php");
@@ -11,7 +10,7 @@
 
 
 
-
+<?php notLoggedInStore() ?>
 
 
 

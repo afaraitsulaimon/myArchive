@@ -8,6 +8,7 @@
  require_once("process-store-edit-file.php");
 
 ?>
+<?php notLoggedInStore() ?>
 
 
 
