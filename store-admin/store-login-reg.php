@@ -1,4 +1,5 @@
 <?php
+session_start();
  require_once("process-reg-store-admin.php");
  require_once("process-login-store-admin.php")
 ?>
