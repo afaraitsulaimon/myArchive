@@ -107,8 +107,9 @@ if (empty($storeLoginError)) {
              	//THEN IF THE ABOVE IS SUCCESSFUL
              	// REDIRECT TO THE VENDOR INDEX PAGE 
 
-             	header("location:store-dashboard.php");
-             	exit();
+
+   header("location:store-dashboard.php");
+   exit();
 	}
 }else{
 

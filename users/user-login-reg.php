@@ -1,4 +1,5 @@
 <?php
+    session_start();
    require_once('process-users-reg.php');
    require_once('process-users-login.php');
    require_once('process-users-change-pw.php');
