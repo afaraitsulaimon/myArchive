@@ -1,0 +1,99 @@
+.adminLoginPage{
+
+	margin-top: 200px;
+}
+
+.adminLoginPage label{
+   
+   font-size: 1.5em;
+   font-weight: bold;
+}
+
+   .adminLoginPage input[type='text']{
+      
+         width: 300px;
+         height: 35px;
+         border-radius: 5px;
+         border: 2px solid #007bff;
+   }
+
+   .adminLoginPage input[type="password"]{
+      
+         width: 300px;
+         height: 35px;
+         border-radius: 5px;
+         border: 2px solid #007bff;
+   }
+
+   .adminLoginPage button{
+      
+         width: 200px;
+         height: 35px;
+         border-radius: 5px;
+         margin-top: 20px;
+         border: 2px solid #007bff;
+
+   }
+
+   .adminLoginPage button:hover{
+      
+        color: red;
+        background-color: white;
+        border: 2px solid red;
+        font-weight: bold;
+   }
+
+   .adminstratorTime{
+
+   	font-size: 2.5em;
+   	font-weight: bold;
+   	margin-top: 50px;
+   }
+
+   .dashboardContent .storeAdminUser a{
+
+   	font-size: 2.5em;
+   	color: white;
+   	text-decoration: none;
+   	font-style: oblique;
+
+   }
+
+   .dashboardContent .fileUsers a{
+
+   	font-size: 2.5em;
+   	color: white;
+   	text-decoration: none;
+   	font-style: oblique;
+
+   }
+
+   .dashboardContent .storeFiles a{
+
+   	font-size: 2.5em;
+   	color: white;
+   	text-decoration: none;
+   	font-style: oblique;
+
+   }
+
+   .dashboardContent .storeAdminUser a:hover{
+
+   	font-weight: bolder;
+   	color: black;
+
+   }
+
+   .dashboardContent .fileUsers a:hover{
+
+  font-weight: bolder;
+  color: red;
+  
+   }
+
+   .dashboardContent .storeFiles a:hover{
+
+   	font-weight: bolder;
+   	color: black;
+
+   }
