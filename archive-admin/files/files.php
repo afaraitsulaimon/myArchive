@@ -91,15 +91,47 @@
       <div class="container-fluid">
       	<div class="row d-flex justify-content-around">
       		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 bg-primary">
+<!--DELETE FILE DISPLAY MESSAGE START FROM HERE -->
+      <?php
+         if (isset($_GET['lcFileDeleteStatus']) && $_GET['lcFileDeleteStatus'] == 'deleted') {
+               
+               echo "<div class='alert alert-success mt-4'>File Deleted</div>";
+
+         }elseif(isset($_GET['billsFileDeleteStatus']) && $_GET['billsFileDeleteStatus'] == 'deleted') {
+               
+               echo "<div class='alert alert-success mt-4'>File Deleted</div>";
+
+   }elseif(isset($_GET['invisibleFileDeleteStatus']) && $_GET['invisibleFileDeleteStatus'] == 'deleted') {
+         
+         echo "<div class='alert alert-success mt-4'>File Deleted</div>";
+
+   }elseif(isset($_GET['nonValidFileDeleteStatus']) && $_GET['nonValidFileDeleteStatus'] == 'deleted') {
+         
+         echo "<div class='alert alert-success mt-4'>File Deleted</div>";
+
+
+   }elseif(isset($_GET['exportFileDeleteStatus']) && $_GET['exportFileDeleteStatus'] == 'deleted') {
+         
+         echo "<div class='alert alert-success mt-4'>File Deleted</div>";
+   }
+      ?>
+
+<!--DELETE FILE DISPLAY MESSAGE ENDS HERE -->
+
 
       			<?php
       		
-             require_once("process-all-files.php");
-             require_once("process-lc-files.php");
-             require_once("process-bills-files.php");
-             require_once("process-invisible-files.php");
-             require_once("process-non-valid-files.php");
-             require_once("process-export-files.php");
+ require_once("process-all-files.php");
+ require_once("process-lc-files.php");
+ require_once("process-bills-files.php");
+ require_once("process-invisible-files.php");
+ require_once("process-non-valid-files.php");
+ require_once("process-export-files.php");
+ require_once("process-delete-lc-file.php");
+ require_once("process-delete-bills-file.php");
+ require_once("process-delete-invisible-file.php");
+ require_once("process-delete-non-valid-file.php");
+ require_once("process-delete-export-file.php");
 
 
 

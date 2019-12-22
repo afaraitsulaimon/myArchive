@@ -39,15 +39,37 @@
    	   	    	$table .= "<td>{$fetchNonValidUsers['users_department']}</td>";
    	   	    	$table .= "<td>{$fetchNonValidUsers['usersPassword']}</td>";
    	   	    	$table .= "<td>{$fetchNonValidUsers['usersRegDate']}</td>";
-                  $table .= "<th><a href=''><button>Edit</button></a></th>";
-                  $table .= "<th><button>Delete</button></th>";
+                 
+                  $table .= "<th><a href='edit-fileusers-admin.php?editUserId=$fetchNonValidUsers[user_id]'><button>Edit</button></a></th>";
+                    $table .= "<form method='POST'>";
+                  $table .= "<th><button onclick=' return deleteUsers()' name='nonValidDelUserBut'>Delete</button></th>";
+                  $table .= "<input type='hidden' name='nonValidDelId' value='$fetchNonValidUsers[user_id]'>";
+                  $table .= "</form>";
    	   	    	$table .= "</tr>";
 
 
    	   	    }
 
    	   	    $table .= "</table>";
+                echo "<div class=' alert alert-secondary text-center mt-4 mb-4 text-primary'>Non-Valid Users</div>";
    	   	    echo $table;
    	   }
    }
 ?>
+
+<script type="text/javascript">
+   function deleteUsers() {
+      var delUser = confirm("Are you sure you want to delete");
+
+      if (delUser == true) {
+
+          alert('Record Delete');
+      } else {
+
+          alert('Record Not deleted');
+      }
+
+      return delUser;
+  }
+
+</script>
