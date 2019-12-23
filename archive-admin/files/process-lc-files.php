@@ -49,8 +49,11 @@
    	   	    	$table .= "<td>{$fetchThePicker['store_userFullName']}</td>";
 
    	   	    	$table .= "<td>{$fetchTheLcFiles['pickUpDate']}</td>";
-                  $table .= "<td><a href=''><button>Edit</button></a></td>";
-                  $table .= "<td><button>Delete</button></td>";
+                  $table .= "<td><a href='edit-file.php?FileId=$fetchTheLcFiles[storeFile_id]'><button>Edit</button></a></td>";
+                  $table .= "<form method ='POST'>";
+                  $table .= "<td><button type='submit' name='delLcFileId' onclick ='return deleteFile()'>Delete</button></td>";
+                  $table .= "<input type='hidden' value='$fetchTheLcFiles[storeFile_id]' name='lcFileId'>";
+                  $table .= "</form>";
    	   	    	$table .= "</tr>";
 
 
@@ -61,3 +64,21 @@
    	   }
    }
 ?>
+
+<script type="text/javascript">
+   function deleteFile() {
+      var delFile = confirm("Are you sure you want to delete");
+
+      if (delFile == true) {
+
+          alert('Record Delete');
+      } else {
+
+          alert('Record Not deleted');
+      }
+
+      return delFile;
+  }
+
+
+</script>

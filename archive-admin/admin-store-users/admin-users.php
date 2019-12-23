@@ -67,6 +67,29 @@
       	<div class="row d-flex justify-content-around">
       		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             <h1 class="text-center">USER'S DETAILS</h1>
+
+            <?php
+
+              if (isset($_GET['deleteInv']) && $_GET['deleteInv'] == 'correct') {
+                    echo "<div class='alert alert-success'>User Successfully Deleted</div>";
+              }elseif (isset($_GET['deleteBills']) && $_GET['deleteBills'] == 'correct') {
+                
+                echo "<div class='alert alert-success'>User Successfully Deleted</div>";
+
+              }elseif (isset($_GET['deleteExport']) && $_GET['deleteExport'] == 'correct') {
+
+                 echo "<div class='alert alert-success'>User Successfully Deleted</div>";
+
+              }elseif (isset($_GET['deleteLC']) && $_GET['deleteLC'] == 'correct') {
+
+                 echo "<div class='alert alert-success'>User Successfully Deleted</div>";
+                 
+              }elseif (isset($_GET['deleteNonValid']) && $_GET['deleteNonValid'] == 'correct') {
+
+                 echo "<div class='alert alert-success'>User Successfully Deleted</div>";
+              }
+            ?>
+
       			<form method="POST" action="<?php echo htmlentities($_SERVER['PHP_SELF']) ?>">
       				<div class="form-group">
       					<select class="form-control" name="usersOfFiles">
@@ -100,7 +123,11 @@
               require_once("process-all-invisible-users.php");
               require_once("process-all-non-valid-users.php");
               require_once("process-all-export-users.php");
-
+            require_once("process-delete-invisible-user.php");
+            require_once("process-delete-bills-user.php");
+            require_once("process-delete-export-user.php");
+            require_once("process-delete-lc-user.php");
+            require_once("process-delete-nonvalid-user.php");
 
 
                

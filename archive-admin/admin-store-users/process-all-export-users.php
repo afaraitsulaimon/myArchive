@@ -39,15 +39,38 @@
    	   	    	$table .= "<td>{$fetchExportUsers['users_department']}</td>";
    	   	    	$table .= "<td>{$fetchExportUsers['usersPassword']}</td>";
    	   	    	$table .= "<td>{$fetchExportUsers['usersRegDate']}</td>";
-                  $table .= "<th><a href=''><button>Edit</button></a></th>";
-                  $table .= "<th><button>Delete</button></th>";
+                  
+                  $table .= "<th><a href='edit-fileusers-admin.php?editUserId=$fetchExportUsers[user_id]'><button>Edit</button></a></th>";
+                  $table .= "<form method='POST'>";
+                  $table .= "<th><button onclick = 'return deleteUsers()' name='expDelBut'>Delete</button></th>";
+                  $table .= "<input type='hidden' value='$fetchExportUsers[user_id]' name='expUserId'>";
+                  $table .= "</form>";
    	   	    	$table .= "</tr>";
 
 
    	   	    }
 
    	   	    $table .= "</table>";
+                echo "<div class='bg bg-secondary text-center mt-4 mb-4'>Export Users</div>";
    	   	    echo $table;
    	   }
    }
 ?>
+
+
+<script type="text/javascript">
+   function deleteUsers() {
+      var delUser = confirm("Are you sure you want to delete");
+
+      if (delUser == true) {
+
+          alert('Record Delete');
+      } else {
+
+          alert('Record Not deleted');
+      }
+
+      return delUser;
+  }
+
+</script>

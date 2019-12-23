@@ -39,15 +39,38 @@
    	   	    	$table .= "<td>{$fetchInvisibleUsers['users_department']}</td>";
    	   	    	$table .= "<td>{$fetchInvisibleUsers['usersPassword']}</td>";
    	   	    	$table .= "<td>{$fetchInvisibleUsers['usersRegDate']}</td>";
-                  $table .= "<th><a href=''><button>Edit</button></a></th>";
-                  $table .= "<th><button>Delete</button></th>";
+                  
+                  $table .= "<td><a href='edit-fileusers-admin.php?editUserId=$fetchInvisibleUsers[user_id]'><button>Edit</button></a></td>";
+                  $table .= "<form method='POST'>";
+                  $table .= "<td><button name='invisibleDeletebutton' onclick='return deleteUsers()'>Delete</button></td>";
+                  $table .= "<input type='hidden' value ='$fetchInvisibleUsers[user_id]' name='invisibleIdNumber'>";
+                  $table .= "</form>";
    	   	    	$table .= "</tr>";
 
 
    	   	    }
 
    	   	    $table .= "</table>";
+                echo "<div class='bg bg-secondary text-center mt-4 mb-4'>Invisible Users</div>";
    	   	    echo $table;
    	   }
    }
 ?>
+
+
+<script type="text/javascript">
+   function deleteUsers() {
+      var delUser = confirm("Are you sure you want to delete");
+
+      if (delUser == true) {
+
+          alert('Record Delete');
+      } else {
+
+          alert('Record Not deleted');
+      }
+
+      return delUser;
+  }
+
+</script>

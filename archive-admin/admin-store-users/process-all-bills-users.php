@@ -16,7 +16,7 @@
    	   	    }
 
 
-   	   	    $table = "<table class='table table-striped table-bordered'>";
+   	   	    $table = "<table class='table table-striped table-bordered mt-4'>";
    	   	    $table .= "<tr>";
    	   	    $table .= "<th>S/N</th>";
    	   	    $table .= "<th>Fullname</th>";
@@ -39,15 +39,37 @@
    	   	    	$table .= "<td>{$fetchBillsUsers['users_department']}</td>";
    	   	    	$table .= "<td>{$fetchBillsUsers['usersPassword']}</td>";
    	   	    	$table .= "<td>{$fetchBillsUsers['usersRegDate']}</td>";
-                  $table .= "<th><a href=''><button>Edit</button></a></th>";
-                  $table .= "<th><button>Delete</button></th>";
+                  
+                  $table .= "<td><a href='edit-fileusers-admin.php?editUserId=$fetchBillsUsers[user_id]'><button>Edit</button></a></td>";
+                  $table .= "<form method='POST'>";
+                  $table .= "<td><button name='delBillUserBut' onclick=' return deleteUsers()'>Delete</button></td>";
+                  $table .= "<input type='hidden' name = 'billsUserId' value='$fetchBillsUsers[user_id]'>";
+                  $table .= "</form>";
    	   	    	$table .= "</tr>";
 
 
    	   	    }
 
    	   	    $table .= "</table>";
+                echo "<div class='bg bg-secondary text-center mt-4 '>Bills Users</div>";
    	   	    echo $table;
    	   }
    }
 ?>
+
+<script type="text/javascript">
+   function deleteUsers() {
+      var delUser = confirm("Are you sure you want to delete");
+
+      if (delUser == true) {
+
+          alert('Record Delete');
+      } else {
+
+          alert('Record Not deleted');
+      }
+
+      return delUser;
+  }
+
+</script>
